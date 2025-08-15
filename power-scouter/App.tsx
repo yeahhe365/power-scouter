@@ -11,6 +11,14 @@ import SettingsModal from './components/SettingsModal';
 import CameraView from './components/CameraView';
 import { useTranslation } from './hooks/useTranslation';
 
+const fileToBase64 = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+});
+
 const DropZoneOverlay: React.FC = () => {
   const { t } = useTranslation();
   return (
@@ -26,7 +34,6 @@ const DropZoneOverlay: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [scouterData, setScouterData] = useState<ScouterData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -43,23 +50,36 @@ const App: React.FC = () => {
     localStorage.setItem('geminiApiKey', apiKey);
   }, [apiKey]);
 
+  useEffect(() => {
+    const cachedData = localStorage.getItem('cachedScouterData');
+    const cachedImage = localStorage.getItem('cachedImageUrl');
+
+    if (cachedData && cachedImage) {
+        try {
+            setScouterData(JSON.parse(cachedData));
+            setImageUrl(cachedImage);
+        } catch (e) {
+            console.error("Failed to parse cached data", e);
+            localStorage.removeItem('cachedScouterData');
+            localStorage.removeItem('cachedImageUrl');
+        }
+    }
+  }, []);
+
   const handleImageUpload = useCallback(async (file: File) => {
     setIsCameraOpen(false);
     setIsLoading(true);
     setError(null);
     setScouterData(null);
-    setImageFile(file);
 
-    setImageUrl(prevUrl => {
-      if (prevUrl) {
-        URL.revokeObjectURL(prevUrl);
-      }
-      return URL.createObjectURL(file);
-    });
+    const base64Url = await fileToBase64(file);
+    setImageUrl(base64Url);
 
     try {
       const data = await analyzeImagePowerLevel(file, selectedModel, language);
       setScouterData(data);
+      localStorage.setItem('cachedScouterData', JSON.stringify(data));
+      localStorage.setItem('cachedImageUrl', base64Url);
     } catch (err: any) {
       console.error(err);
       if (err.message === "API_KEY_MISSING") {
@@ -73,17 +93,13 @@ const App: React.FC = () => {
   }, [selectedModel, t, language]);
 
   const handleReset = useCallback(() => {
-    setImageFile(null);
-    setImageUrl(prevUrl => {
-      if (prevUrl) {
-          URL.revokeObjectURL(prevUrl);
-      }
-      return null;
-    });
+    setImageUrl(null);
     setScouterData(null);
     setIsLoading(false);
     setError(null);
     setIsCameraOpen(false);
+    localStorage.removeItem('cachedScouterData');
+    localStorage.removeItem('cachedImageUrl');
   }, []);
   
   const handleOpenCamera = useCallback(() => {
