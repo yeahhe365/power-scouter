@@ -9,7 +9,7 @@
   "display.errorTitle": "分析错误！",
   "display.errorDefault": "分析失败。战斗力可能过高无法测量，或发生API错误。",
   "display.resetButton.loading": "分析中...",
-  "display.resetButton.default": "扫描下一个",
+  "display.resetButton.default": "清空",
   "loader.message": "分析中...",
   "settings.title": "设置",
   "settings.modelLabel": "选择分析模型",
