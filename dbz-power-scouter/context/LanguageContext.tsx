@@ -29,9 +29,11 @@ const getInitialLanguage = (): Language => {
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(getInitialLanguage);
   const [translations, setTranslations] = useState<Translations>({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchTranslations = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`/locales/${language}.json`);
         if (!response.ok) {
@@ -42,14 +44,25 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       } catch (error) {
         console.error(error);
         // Fallback to English if translations fail to load
-        const fallbackResponse = await fetch('/locales/en.json');
-        const data = await fallbackResponse.json();
-        setTranslations(data);
+        try {
+          const fallbackResponse = await fetch('/locales/en.json');
+          const data = await fallbackResponse.json();
+          setTranslations(data);
+        } catch (fallbackError) {
+          console.error("Failed to load fallback English translations:", fallbackError);
+          setTranslations({}); // No translations available
+        }
+      } finally {
+        setIsLoading(false);
       }
     };
     
     fetchTranslations();
   }, [language]);
+
+  if (isLoading) {
+    return null; // Don't render the app until translations are loaded
+  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, translations }}>
