@@ -42,7 +42,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, selected
       aria-labelledby="settings-title"
     >
       <div 
-        className="bg-gray-800 border-2 border-green-500/50 rounded-lg p-6 shadow-2xl shadow-green-500/10 w-full max-w-md animate-fade-in"
+        className="bg-gray-800 border-2 border-green-500/50 rounded-lg p-4 sm:p-6 shadow-2xl shadow-green-500/10 w-full max-w-md animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 id="settings-title" className="text-2xl font-bold text-green-400 mb-6">{t('settings.title')}</h2>

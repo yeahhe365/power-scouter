@@ -155,9 +155,9 @@ const App: React.FC = () => {
       <div className="h-screen flex flex-col justify-center items-center p-2 sm:p-4 bg-gray-900 bg-opacity-80 backdrop-blur-sm overflow-y-auto">
         <div className="w-full max-w-2xl">
           <header className="flex items-center justify-between mb-4 md:mb-8 shrink-0">
-            <div className="flex items-center space-x-4">
-              <ScouterIcon className="w-12 h-12 sm:w-16 sm:h-16 text-green-400" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 tracking-widest uppercase" style={{ textShadow: '0 0 5px #2fcc71, 0 0 10px #2fcc71' }}>
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <ScouterIcon className="w-10 h-10 sm:w-12 sm:h-12 text-green-400" />
+              <h1 className="text-2xl sm:text-4xl font-bold text-green-400 tracking-widest uppercase" style={{ textShadow: '0 0 5px #2fcc71, 0 0 10px #2fcc71' }}>
                 {t('header.title')}
               </h1>
             </div>
@@ -170,7 +170,7 @@ const App: React.FC = () => {
             </button>
           </header>
 
-          <main className="bg-gray-800 border-2 border-green-500/50 rounded-lg p-4 sm:p-6 shadow-2xl shadow-green-500/10">
+          <main className="bg-gray-800 border-2 border-green-500/50 rounded-lg p-4 sm:p-6 shadow-2xl shadow-green-500/10 min-h-0">
             {isCameraOpen ? (
               <CameraView onCapture={handleImageUpload} onClose={handleCloseCamera} />
             ) : !imageUrl ? (

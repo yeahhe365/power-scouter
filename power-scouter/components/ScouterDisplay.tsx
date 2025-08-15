@@ -25,11 +25,11 @@ const ScouterDisplay: React.FC<ScouterDisplayProps> = ({ imageUrl, isLoading, sc
         
         {scouterData && (
           <div 
-            className="absolute top-4 left-4 bg-black/70 p-3 rounded-md border border-green-400 text-green-300"
+            className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-black/70 p-2 sm:p-3 rounded-md border border-green-400 text-green-300"
             style={{ textShadow: '0 0 8px #2fcc71' }}
           >
-            <p className="text-sm uppercase tracking-wider">{t('display.powerLevelLabel')}</p>
-            <p className="text-4xl font-bold">{formattedPowerLevel}</p>
+            <p className="text-xs sm:text-sm uppercase tracking-wider">{t('display.powerLevelLabel')}</p>
+            <p className="text-3xl sm:text-4xl font-bold">{formattedPowerLevel}</p>
           </div>
         )}
       </div>
