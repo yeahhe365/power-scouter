@@ -1,0 +1,5 @@
+{
+  "name": "DBZ Power Scouter",
+  "description": "An app that mimics a Dragon Ball Z scouter. Upload an image, and it will use the Gemini API to analyze and display a power level directly on the image. / 一个模仿《龙珠Z》战斗力侦测器的应用程序。上传一张图片，它将使用 Gemini API 来分析并在图片上直接显示目标的战斗力。",
+  "requestFramePermissions": []
+}
