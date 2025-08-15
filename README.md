@@ -25,7 +25,7 @@
 *   **主题化 UI/UX**: 复古的、受《龙珠Z》启发的界面，配有扫描动画和未来派字体，带给您身临其境的体验。
 *   **双语支持**: 完全支持英语和中文，并能根据浏览器设置自动检测语言。
 *   **可自定义设置**:
-    *   在不同的 Gemini 模型（`2.5 Flash`, `2.5 Pro`）之间切换。
+    *   在不同的 Gemini 模型（`gemini-2.5-flash`, `gemini-2.5-pro`）之间切换。
     *   手动选择您偏好的语言。
     *   安全地输入您自己的 Gemini API 密钥，该密钥仅存储在您的本地浏览器中。
 *   **响应式设计**: 侦测器显示界面能流畅地适应桌面和移动设备屏幕。
@@ -34,22 +34,22 @@
 
 下图是侦测器分析图像的示例。UI 采用了绿色、未来主义的主题，让人联想到《龙珠Z》中的原始侦测器。
 
-![App Screenshot](https://storage.googleapis.com/static.aistudio.google.com/prompt/screenshots/dbz-scouter.png)
+<img width="972" height="918" alt="PixPin_2025-08-15_15-02-28" src="https://github.com/user-attachments/assets/30d6d1b2-c064-4949-88af-1a6507770965" />
+<img width="914" height="913" alt="PixPin_2025-08-15_15-02-48" src="https://github.com/user-attachments/assets/5effdb78-1af8-4193-ae2a-d9c781e126cd" />
 
-## 🛠️ 技术栈 (Tech Stack)
-
-*   **前端**: React, TypeScript, Tailwind CSS
-*   **AI 模型**: Google Gemini API (`@google/genai`)
 
 ## 🤖 工作原理 (How It Works)
-
-应用程序的逻辑非常直接：
 
 1.  **图像输入**: 用户通过支持的方式（点击、拖放、粘贴）上传一张图片。
 2.  **数据转换**: React 前端将图像文件转换为 base64 编码的字符串。
 3.  **API 请求**: base64 字符串与精心设计的提示词（英文或中文）一同发送到 Gemini API。提示词指示模型扮演一个《龙珠Z》的战斗力侦测器，并以结构化的 JSON 格式返回其分析结果。
 4.  **JSON Schema 强制执行**: API 调用指定了一个 `responseSchema`，以确保模型的输出始终是包含 `powerLevel` (整数) 和 `reasoning` (字符串) 的有效 JSON 对象。
 5.  **显示结果**: 前端解析 JSON 响应，并将战斗力数值和分析动态地显示在用户上传的图片上，完成侦测器效果。
+
+## 🛠️ 技术栈 (Tech Stack)
+
+*   **前端**: React, TypeScript, Tailwind CSS
+*   **AI 模型**: Google Gemini API (`@google/genai`)
 
 ## 🔑 API 密钥配置 (API Key Configuration)
 
@@ -59,3 +59,47 @@
 2.  打开应用程序，点击右上角的设置图标 (⚙️)。
 3.  将您的 Gemini API 密钥粘贴到指定字段中。
 4.  密钥会安全地保存在您浏览器的 `localStorage` 中，以便将来使用。
+
+## 💻 本地开发 (Local Development)
+
+想要在本地运行和调试此项目吗？请按照以下步骤操作：
+
+1.  **克隆仓库 (Clone the Repository)**
+    ```bash
+    git clone https://github.com/google/generative-ai-docs.git
+    cd generative-ai-docs/demos/dbz_power_scouter
+    ```
+
+2.  **运行本地服务器 (Run a Local Server)**
+    此项目是一个纯前端应用，无需复杂的构建过程。您可以使用任何静态文件服务器来运行它。这里提供几个常用选项：
+
+    *   **使用 Node.js (`serve` 包):**
+        ```bash
+        # 如果您没有安装 serve，请先全局安装: npm install -g serve
+        serve .
+        ```
+
+    *   **使用 Python:**
+        ```bash
+        # Python 3.x
+        python -m http.server
+        ```
+
+    启动成功后，在浏览器中打开命令行提示的 URL (通常是 `http://localhost:3000` 或 `http://localhost:8000`)。
+
+3.  **配置 API 密钥 (Configure API Key)**
+    应用启动后，您必须在界面中配置您自己的 Google Gemini API 密钥才能使其正常工作。
+    *   点击右上角的设置图标 (⚙️)。
+    *   将您的 API 密钥粘贴到 "Gemini API 密钥" 字段中。
+
+## 🤝 贡献 (Contributing)
+
+我们欢迎各种形式的贡献！如果您有任何改进建议或发现了 Bug，请随时提交 [Pull Request](https://github.com/google/generative-ai-docs/pulls) 或创建 [Issue](https://github.com/google/generative-ai-docs/issues)。
+
+## 📄 许可证 (License)
+
+本项目根据 MIT 许可证授权。
+
+## ⚠️ 免责声明 (Disclaimer)
+
+这是一个演示应用，旨在展示 Gemini API 的功能。它并非 Google 的官方产品。
