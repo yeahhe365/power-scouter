@@ -35,6 +35,11 @@ const App: React.FC = () => {
   const { t, language } = useTranslation();
   const [isDraggingOverWindow, setIsDraggingOverWindow] = useState<boolean>(false);
   const dragCounter = useRef(0);
+  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('geminiApiKey') || '');
+
+  useEffect(() => {
+    localStorage.setItem('geminiApiKey', apiKey);
+  }, [apiKey]);
 
   const handleImageUpload = useCallback(async (file: File) => {
     setIsLoading(true);
@@ -55,7 +60,7 @@ const App: React.FC = () => {
     } catch (err: any) {
       console.error(err);
       if (err.message === "API_KEY_MISSING") {
-        setError(t('error.apiKeyUnavailable'));
+        setError(t('error.apiKeyMissing'));
       } else {
         setError(t('display.errorDefault'));
       }
@@ -171,6 +176,8 @@ const App: React.FC = () => {
         onClose={() => setIsSettingsOpen(false)}
         selectedModel={selectedModel}
         onModelChange={setSelectedModel}
+        apiKey={apiKey}
+        onApiKeyChange={setApiKey}
       />
     </>
   );

@@ -28,7 +28,8 @@ export const analyzeImagePowerLevel = async (
   modelConfig: ModelConfig, 
   language: 'en' | 'zh'
 ): Promise<ScouterData> => {
-  const apiKey = process.env.API_KEY;
+  const userApiKey = localStorage.getItem('geminiApiKey');
+  const apiKey = userApiKey || process.env.API_KEY;
 
   if (!apiKey) {
     throw new Error("API_KEY_MISSING");

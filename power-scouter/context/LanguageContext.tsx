@@ -27,11 +27,14 @@ const translationsData: Record<Language, Translations> = {
     "settings.modelLabel": "Select Analysis Model",
     "settings.modelDescription": "Different models can affect response speed and analysis quality.",
     "settings.languageLabel": "Language",
+    "settings.apiKeyLabel": "Gemini API Key",
+    "settings.apiKeyDescription": "Your key is stored only in your browser.",
+    "settings.apiKeyPlaceholder": "Paste your API key here",
     "settings.closeButton": "Close",
     "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (Standard)",
     "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (Advanced)",
     "dropzone.title": "Drop Anywhere to Analyze",
-    "error.apiKeyUnavailable": "The application is not configured to use the Gemini API."
+    "error.apiKeyMissing": "API key not set or provided. Please add your key in the settings."
   },
   zh: {
     "header.title": "Power Scouter",
@@ -50,11 +53,14 @@ const translationsData: Record<Language, Translations> = {
     "settings.modelLabel": "选择分析模型",
     "settings.modelDescription": "不同的模型会影响响应速度和分析质量。",
     "settings.languageLabel": "语言",
+    "settings.apiKeyLabel": "Gemini API 密钥",
+    "settings.apiKeyDescription": "您的密钥只会存储在您的浏览器中。",
+    "settings.apiKeyPlaceholder": "在此处粘贴您的 API 密钥",
     "settings.closeButton": "关闭",
     "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (标准)",
     "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (高级)",
     "dropzone.title": "拖放到任何地方进行分析",
-    "error.apiKeyUnavailable": "应用程序未配置为使用 Gemini API。"
+    "error.apiKeyMissing": "未设置或提供 API 密钥。请在设置中添加您的密钥。"
   }
 };
 
