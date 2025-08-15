@@ -8,6 +8,7 @@ import ScouterDisplay from './components/ScouterDisplay';
 import ScouterIcon from './components/ScouterIcon';
 import SettingsIcon from './components/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
+import CameraView from './components/CameraView';
 import { useTranslation } from './hooks/useTranslation';
 
 const DropZoneOverlay: React.FC = () => {
@@ -36,12 +37,14 @@ const App: React.FC = () => {
   const [isDraggingOverWindow, setIsDraggingOverWindow] = useState<boolean>(false);
   const dragCounter = useRef(0);
   const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('geminiApiKey') || '');
+  const [isCameraOpen, setIsCameraOpen] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage.setItem('geminiApiKey', apiKey);
   }, [apiKey]);
 
   const handleImageUpload = useCallback(async (file: File) => {
+    setIsCameraOpen(false);
     setIsLoading(true);
     setError(null);
     setScouterData(null);
@@ -80,6 +83,17 @@ const App: React.FC = () => {
     setScouterData(null);
     setIsLoading(false);
     setError(null);
+    setIsCameraOpen(false);
+  }, []);
+  
+  const handleOpenCamera = useCallback(() => {
+    if (!isLoading) {
+      setIsCameraOpen(true);
+    }
+  }, [isLoading]);
+  
+  const handleCloseCamera = useCallback(() => {
+    setIsCameraOpen(false);
   }, []);
 
   const handleDrop = useCallback((e: DragEvent) => {
@@ -88,7 +102,7 @@ const App: React.FC = () => {
     dragCounter.current = 0;
     setIsDraggingOverWindow(false);
     
-    if (isLoading) return;
+    if (isLoading || isCameraOpen) return;
 
     if (e.dataTransfer?.files && e.dataTransfer.files[0]) {
         const file = e.dataTransfer.files[0];
@@ -96,16 +110,16 @@ const App: React.FC = () => {
             handleImageUpload(file);
         }
     }
-  }, [handleImageUpload, isLoading]);
+  }, [handleImageUpload, isLoading, isCameraOpen]);
 
   const handleDragEnter = useCallback((e: DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     dragCounter.current++;
-    if (!isLoading) {
+    if (!isLoading && !isCameraOpen) {
         setIsDraggingOverWindow(true);
     }
-  }, [isLoading]);
+  }, [isLoading, isCameraOpen]);
 
   const handleDragLeave = useCallback((e: DragEvent) => {
     e.preventDefault();
@@ -157,8 +171,14 @@ const App: React.FC = () => {
           </header>
 
           <main className="bg-gray-800 border-2 border-green-500/50 rounded-lg p-4 sm:p-6 shadow-2xl shadow-green-500/10">
-            {!imageUrl ? (
-              <ImageUploader onImageUpload={handleImageUpload} disabled={isLoading} />
+            {isCameraOpen ? (
+              <CameraView onCapture={handleImageUpload} onClose={handleCloseCamera} />
+            ) : !imageUrl ? (
+              <ImageUploader 
+                onImageUpload={handleImageUpload} 
+                onOpenCamera={handleOpenCamera} 
+                disabled={isLoading} 
+              />
             ) : (
               <ScouterDisplay
                 imageUrl={imageUrl}

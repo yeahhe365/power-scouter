@@ -1,13 +1,15 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import CameraIcon from './CameraIcon';
 
 interface ImageUploaderProps {
   onImageUpload: (file: File) => void;
   disabled: boolean;
+  onOpenCamera: () => void;
 }
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, disabled }) => {
+const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, disabled, onOpenCamera }) => {
   const [isDragging, setIsDragging] = useState(false);
   const { t } = useTranslation();
 
@@ -76,7 +78,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, disabled }
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className={`flex flex-col items-center justify-center w-full h-56 sm:h-64 border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-300
+        className={`flex flex-col items-center justify-center w-full min-h-[14rem] sm:min-h-[16rem] border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-300
           ${isDragging ? 'border-green-400 bg-green-900/20' : 'border-green-500/50 hover:border-green-400 hover:bg-gray-700/50'}
           ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
       >
@@ -89,6 +91,23 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, disabled }
         </div>
         <input id="image-upload" type="file" className="hidden" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" disabled={disabled} />
       </label>
+
+      <div className="flex items-center my-4">
+        <span className="flex-grow bg-gray-700/50 h-px"></span>
+        <span className="mx-4 text-gray-400 text-sm uppercase">{t('uploader.or')}</span>
+        <span className="flex-grow bg-gray-700/50 h-px"></span>
+      </div>
+
+      <button
+        onClick={onOpenCamera}
+        disabled={disabled}
+        className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-gray-700 text-green-300 font-bold rounded-md hover:bg-gray-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label={t('uploader.useCamera')}
+      >
+        <CameraIcon className="w-5 h-5" />
+        <span>{t('uploader.useCamera')}</span>
+      </button>
+
     </div>
   );
 };

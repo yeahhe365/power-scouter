@@ -15,6 +15,8 @@ const translationsData: Record<Language, Translations> = {
     "settings.button.label": "Open Settings",
     "uploader.title": "Click to upload, drag and drop, or paste",
     "uploader.subtitle": "PNG, JPG, or WEBP supported",
+    "uploader.or": "OR",
+    "uploader.useCamera": "Use Camera",
     "display.powerLevelLabel": "POWER LEVEL",
     "display.analysisLabel": "Scouter Analysis:",
     "display.imageAlt": "Subject being analyzed",
@@ -34,13 +36,21 @@ const translationsData: Record<Language, Translations> = {
     "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (Standard)",
     "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (Advanced)",
     "dropzone.title": "Drop Anywhere to Analyze",
-    "error.apiKeyMissing": "API key not set or provided. Please add your key in the settings."
+    "error.apiKeyMissing": "API key not set or provided. Please add your key in the settings.",
+    "camera.capture": "Capture",
+    "camera.cancel": "Cancel",
+    "camera.error.title": "Camera Error",
+    "camera.error.permission": "Camera permission was denied. Please enable it in your browser settings to use this feature.",
+    "camera.error.noDevice": "No camera device found. Please check if your camera is connected.",
+    "camera.error.generic": "An unexpected error occurred while accessing the camera."
   },
   zh: {
     "header.title": "Power Scouter",
     "settings.button.label": "打开设置",
     "uploader.title": "点击上传、拖放或粘贴",
     "uploader.subtitle": "支持 PNG, JPG, 或 WEBP 格式",
+    "uploader.or": "或",
+    "uploader.useCamera": "使用摄像头",
     "display.powerLevelLabel": "战斗力",
     "display.analysisLabel": "侦测器分析：",
     "display.imageAlt": "被分析的对象",
@@ -60,7 +70,13 @@ const translationsData: Record<Language, Translations> = {
     "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (标准)",
     "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (高级)",
     "dropzone.title": "拖放到任何地方进行分析",
-    "error.apiKeyMissing": "未设置或提供 API 密钥。请在设置中添加您的密钥。"
+    "error.apiKeyMissing": "未设置或提供 API 密钥。请在设置中添加您的密钥。",
+    "camera.capture": "拍照",
+    "camera.cancel": "取消",
+    "camera.error.title": "摄像头错误",
+    "camera.error.permission": "摄像头权限被拒绝。请在浏览器设置中启用以使用此功能。",
+    "camera.error.noDevice": "未找到摄像头设备。请检查您的摄像头是否已连接。",
+    "camera.error.generic": "访问摄像头时发生意外错误。"
   }
 };
 
