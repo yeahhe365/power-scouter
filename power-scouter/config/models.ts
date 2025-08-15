@@ -6,11 +6,6 @@ export const availableModels: ModelConfig[] = [
     id: 'gemini-2.5-flash', 
     params: {} 
   },
-  { 
-    nameKey: 'model.gemini-2.5-pro.name', 
-    id: 'gemini-2.5-pro', 
-    params: {} 
-  },
 ];
 
 export const defaultModel = availableModels[0];

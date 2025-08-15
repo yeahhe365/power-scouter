@@ -10,11 +10,9 @@ interface SettingsModalProps {
   onClose: () => void;
   selectedModel: ModelConfig;
   onModelChange: (model: ModelConfig) => void;
-  apiKey: string | null;
-  onApiKeyChange: (key: string) => void;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, selectedModel, onModelChange, apiKey, onApiKeyChange }) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, selectedModel, onModelChange }) => {
   const { t } = useTranslation();
   const { language, setLanguage } = useContext(LanguageContext);
 
@@ -61,41 +59,26 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, selected
               <option value="zh">中文</option>
             </select>
           </div>
-          <div>
-            <label htmlFor="model-select" className="block mb-2 text-sm font-medium text-green-300">
-              {t('settings.modelLabel')}
-            </label>
-            <select 
-              id="model-select"
-              value={selectedModel.nameKey}
-              onChange={handleModelSelect}
-              className="bg-gray-900 border border-green-500/50 text-green-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-            >
-              {availableModels.map(model => (
-                <option key={model.nameKey} value={model.nameKey}>{t(model.nameKey)}</option>
-              ))}
-            </select>
-            <p className="mt-2 text-xs text-gray-400">
-              {t('settings.modelDescription')}
-            </p>
-          </div>
-           {/* New API Key Section */}
-          <div>
-            <label htmlFor="api-key-input" className="block mb-2 text-sm font-medium text-green-300">
-              {t('settings.apiKeyLabel')}
-            </label>
-            <input
-              id="api-key-input"
-              type="password"
-              value={apiKey || ''}
-              onChange={(e) => onApiKeyChange(e.target.value)}
-              placeholder={t('settings.apiKeyPlaceholder')}
-              className="bg-gray-900 border border-green-500/50 text-green-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-            />
-             <p className="mt-2 text-xs text-gray-400">
-              {t('settings.apiKeyDescription')}
-            </p>
-          </div>
+          {availableModels.length > 1 && (
+            <div>
+              <label htmlFor="model-select" className="block mb-2 text-sm font-medium text-green-300">
+                {t('settings.modelLabel')}
+              </label>
+              <select 
+                id="model-select"
+                value={selectedModel.nameKey}
+                onChange={handleModelSelect}
+                className="bg-gray-900 border border-green-500/50 text-green-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+              >
+                {availableModels.map(model => (
+                  <option key={model.nameKey} value={model.nameKey}>{t(model.nameKey)}</option>
+                ))}
+              </select>
+              <p className="mt-2 text-xs text-gray-400">
+                {t('settings.modelDescription')}
+              </p>
+            </div>
+          )}
         </div>
         <div className="mt-8 flex justify-end">
           <button
