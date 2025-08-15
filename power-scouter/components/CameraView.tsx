@@ -17,7 +17,11 @@ const CameraView: React.FC<CameraViewProps> = ({ onCapture, onClose }) => {
     const startCamera = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'environment' }
+          video: {
+            facingMode: 'environment',
+            width: { ideal: 1080 },
+            height: { ideal: 1440 }
+          }
         });
         streamRef.current = stream;
         if (videoRef.current) {
@@ -48,12 +52,40 @@ const CameraView: React.FC<CameraViewProps> = ({ onCapture, onClose }) => {
   const handleCapture = useCallback(() => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    if (video && canvas) {
+    if (video && canvas && video.readyState >= 2) { // Ensure video has data
       const context = canvas.getContext('2d');
       if (context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+        const videoRatio = videoWidth / videoHeight;
+
+        const viewWidth = video.clientWidth;
+        const viewHeight = video.clientHeight;
+        const viewRatio = viewWidth / viewHeight;
+
+        let sX = 0, sY = 0, sWidth = videoWidth, sHeight = videoHeight;
+
+        // 'object-cover' logic: crop to fit the view
+        if (videoRatio > viewRatio) { // Video is wider than view, crop sides
+            sWidth = videoHeight * viewRatio;
+            sX = (videoWidth - sWidth) / 2;
+        } else { // Video is taller than view, crop top/bottom
+            sHeight = videoWidth / viewRatio;
+            sY = (videoHeight - sHeight) / 2;
+        }
+
+        // Capture at a high resolution while maintaining the aspect ratio of the view
+        const captureWidth = 1080;
+        const captureHeight = captureWidth / viewRatio;
+
+        canvas.width = captureWidth;
+        canvas.height = captureHeight;
+
+        context.drawImage(
+          video,
+          sX, sY, sWidth, sHeight,
+          0, 0, captureWidth, captureHeight
+        );
         
         canvas.toBlob((blob) => {
           if (blob) {
@@ -67,7 +99,7 @@ const CameraView: React.FC<CameraViewProps> = ({ onCapture, onClose }) => {
 
   return (
     <div className="relative w-full flex flex-col items-center space-y-4">
-        <div className="relative w-full max-w-md overflow-hidden rounded-lg border-2 border-green-500/50 aspect-video bg-black">
+        <div className="relative w-full max-w-md overflow-hidden rounded-lg border-2 border-green-500/50 aspect-[3/4] bg-black">
             <video
                 ref={videoRef}
                 autoPlay

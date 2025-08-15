@@ -1,3 +1,4 @@
+
 import React, { createContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'zh';
@@ -42,7 +43,8 @@ const translationsData: Record<Language, Translations> = {
     "camera.error.title": "Camera Error",
     "camera.error.permission": "Camera permission was denied. Please enable it in your browser settings to use this feature.",
     "camera.error.noDevice": "No camera device found. Please check if your camera is connected.",
-    "camera.error.generic": "An unexpected error occurred while accessing the camera."
+    "camera.error.generic": "An unexpected error occurred while accessing the camera.",
+    "settings.githubLink": "View Source on GitHub"
   },
   zh: {
     "header.title": "Power Scouter",
@@ -76,7 +78,8 @@ const translationsData: Record<Language, Translations> = {
     "camera.error.title": "摄像头错误",
     "camera.error.permission": "摄像头权限被拒绝。请在浏览器设置中启用以使用此功能。",
     "camera.error.noDevice": "未找到摄像头设备。请检查您的摄像头是否已连接。",
-    "camera.error.generic": "访问摄像头时发生意外错误。"
+    "camera.error.generic": "访问摄像头时发生意外错误。",
+    "settings.githubLink": "在 GitHub 上查看源代码"
   }
 };
 

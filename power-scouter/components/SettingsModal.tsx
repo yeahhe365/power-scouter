@@ -98,7 +98,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, selected
             </div>
           )}
         </div>
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 flex justify-between items-center">
+          <a
+            href="https://github.com/yeahhe365/power-scouter"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-400 hover:text-green-300 hover:underline transition-colors"
+            aria-label="View source code on GitHub"
+          >
+            {t('settings.githubLink')}
+          </a>
           <button
             onClick={onClose}
             className="px-4 py-2 bg-green-600 text-white font-bold rounded-md hover:bg-green-500 transition-colors duration-300"
