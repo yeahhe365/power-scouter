@@ -15,7 +15,12 @@
   "settings.modelLabel": "选择分析模型",
   "settings.modelDescription": "不同的模型会影响响应速度和分析质量。",
   "settings.languageLabel": "语言",
+  "settings.apiKeyLabel": "Gemini API 密钥",
+  "settings.apiKeyDescription": "您的密钥只会存储在您的浏览器中。",
+  "settings.apiKeyPlaceholder": "在此处粘贴您的 API 密钥",
   "settings.closeButton": "关闭",
-  "model.gemini-2.5-flash.name": "Gemini 2.5 Flash",
-  "dropzone.title": "拖放到任何地方进行分析"
+  "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (标准)",
+  "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (高级)",
+  "dropzone.title": "拖放到任何地方进行分析",
+  "error.noApiKey": "未设置 API 密钥。请在设置中添加您的密钥。"
 }

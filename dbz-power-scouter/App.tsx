@@ -10,6 +10,8 @@ import SettingsIcon from './components/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
 import { useTranslation } from './hooks/useTranslation';
 
+const API_KEY_STORAGE_KEY = 'gemini_api_key';
+
 const DropZoneOverlay: React.FC = () => {
   const { t } = useTranslation();
   return (
@@ -35,6 +37,30 @@ const App: React.FC = () => {
   const { t, language } = useTranslation();
   const [isDraggingOverWindow, setIsDraggingOverWindow] = useState<boolean>(false);
   const dragCounter = useRef(0);
+  
+  // New state for API Key
+  const [apiKey, setApiKey] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem(API_KEY_STORAGE_KEY);
+    } catch (e) {
+      console.error("Failed to read API key from localStorage", e);
+      return null;
+    }
+  });
+
+  // Effect to save API Key to localStorage
+  useEffect(() => {
+    try {
+      if (apiKey) {
+        localStorage.setItem(API_KEY_STORAGE_KEY, apiKey);
+      } else {
+        localStorage.removeItem(API_KEY_STORAGE_KEY);
+      }
+    } catch (e) {
+      console.error("Failed to save API key to localStorage", e);
+    }
+  }, [apiKey]);
+
 
   const handleImageUpload = useCallback(async (file: File) => {
     setIsLoading(true);
@@ -50,15 +76,19 @@ const App: React.FC = () => {
     });
 
     try {
-      const data = await analyzeImagePowerLevel(file, selectedModel, language);
+      const data = await analyzeImagePowerLevel(file, selectedModel, language, apiKey);
       setScouterData(data);
     } catch (err: any) {
       console.error(err);
-      setError(t('display.errorDefault'));
+      if (err.message === "API_KEY_MISSING") {
+        setError(t('error.noApiKey'));
+      } else {
+        setError(t('display.errorDefault'));
+      }
     } finally {
       setIsLoading(false);
     }
-  }, [selectedModel, t, language]);
+  }, [selectedModel, t, language, apiKey]);
 
   const handleReset = useCallback(() => {
     setImageFile(null);
@@ -167,6 +197,8 @@ const App: React.FC = () => {
         onClose={() => setIsSettingsOpen(false)}
         selectedModel={selectedModel}
         onModelChange={setSelectedModel}
+        apiKey={apiKey}
+        onApiKeyChange={setApiKey}
       />
     </>
   );
