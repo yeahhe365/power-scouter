@@ -34,8 +34,8 @@
 
 下图是侦测器分析图像的示例。UI 采用了绿色、未来主义的主题，让人联想到《龙珠Z》中的原始侦测器。
 
-<img width="972" height="918" alt="PixPin_2025-08-15_15-02-28" src="https://github.com/user-attachments/assets/30d6d1b2-c064-4949-88af-1a6507770965" />
-<img width="914" height="913" alt="PixPin_2025-08-15_15-02-48" src="https://github.com/user-attachments/assets/5effdb78-1af8-4193-ae2a-d9c781e126cd" />
+<img width="816" height="893" alt="PixPin_2025-08-15_15-21-54" src="https://github.com/user-attachments/assets/e8bda072-2eff-4635-8d12-8c1fa1215742" />
+
 
 
 ## 🤖 工作原理 (How It Works)
