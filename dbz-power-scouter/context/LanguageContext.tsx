@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 
 type Language = 'en' | 'zh';
@@ -29,11 +28,13 @@ const getInitialLanguage = (): Language => {
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(getInitialLanguage);
   const [translations, setTranslations] = useState<Translations>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // When language changes, set loaded to false to show the loading screen again.
+    setIsLoaded(false);
+    
     const fetchTranslations = async () => {
-      setIsLoading(true);
       try {
         const response = await fetch(`/locales/${language}.json`);
         if (!response.ok) {
@@ -50,18 +51,37 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
           setTranslations(data);
         } catch (fallbackError) {
           console.error("Failed to load fallback translations:", fallbackError);
-          setTranslations({}); // Clear on total failure
+          setTranslations({}); // Set to empty on total failure
         }
       } finally {
-        setIsLoading(false);
+        setIsLoaded(true);
       }
     };
     
     fetchTranslations();
   }, [language]);
 
-  if (isLoading) {
-    return null; // Don't render children until translations are loaded
+  if (!isLoaded) {
+    // Render a full-page loading indicator.
+    // This provides better UX and confirms the loading state is working,
+    // preventing the main app from rendering until translations are ready.
+    return (
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#111827', // Corresponds to bg-gray-900
+        color: '#4ade80', // Corresponds to text-green-400
+        fontFamily: "'Chakra Petch', sans-serif",
+        fontSize: '1.25rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em'
+      }}>
+        <p>Loading Scouter OS...</p>
+      </div>
+    );
   }
 
   return (
