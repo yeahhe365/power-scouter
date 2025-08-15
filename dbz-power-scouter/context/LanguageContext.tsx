@@ -49,8 +49,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
           const data = await fallbackResponse.json();
           setTranslations(data);
         } catch (fallbackError) {
-          console.error("Failed to load fallback English translations:", fallbackError);
-          setTranslations({}); // No translations available
+          console.error("Failed to load fallback translations:", fallbackError);
+          setTranslations({}); // Clear on total failure
         }
       } finally {
         setIsLoading(false);
@@ -61,7 +61,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   }, [language]);
 
   if (isLoading) {
-    return null; // Don't render the app until translations are loaded
+    return null; // Don't render children until translations are loaded
   }
 
   return (
