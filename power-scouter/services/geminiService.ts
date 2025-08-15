@@ -28,7 +28,6 @@ export const analyzeImagePowerLevel = async (
   modelConfig: ModelConfig, 
   language: 'en' | 'zh'
 ): Promise<ScouterData> => {
-
   const apiKey = process.env.API_KEY;
 
   if (!apiKey) {

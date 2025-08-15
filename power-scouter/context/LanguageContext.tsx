@@ -29,8 +29,9 @@ const translationsData: Record<Language, Translations> = {
     "settings.languageLabel": "Language",
     "settings.closeButton": "Close",
     "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (Standard)",
+    "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (Advanced)",
     "dropzone.title": "Drop Anywhere to Analyze",
-    "error.apiKeyMissing": "Application not configured: API key is missing."
+    "error.apiKeyUnavailable": "The application is not configured to use the Gemini API."
   },
   zh: {
     "header.title": "Power Scouter",
@@ -51,8 +52,9 @@ const translationsData: Record<Language, Translations> = {
     "settings.languageLabel": "语言",
     "settings.closeButton": "关闭",
     "model.gemini-2.5-flash.name": "Gemini 2.5 Flash (标准)",
+    "model.gemini-2.5-pro.name": "Gemini 2.5 Pro (高级)",
     "dropzone.title": "拖放到任何地方进行分析",
-    "error.apiKeyMissing": "应用程序配置不正确：缺少 API 密钥。"
+    "error.apiKeyUnavailable": "应用程序未配置为使用 Gemini API。"
   }
 };
 

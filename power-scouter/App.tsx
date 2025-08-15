@@ -55,7 +55,7 @@ const App: React.FC = () => {
     } catch (err: any) {
       console.error(err);
       if (err.message === "API_KEY_MISSING") {
-        setError(t('error.apiKeyMissing'));
+        setError(t('error.apiKeyUnavailable'));
       } else {
         setError(t('display.errorDefault'));
       }

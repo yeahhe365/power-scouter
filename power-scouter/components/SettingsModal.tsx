@@ -59,6 +59,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, selected
               <option value="zh">中文</option>
             </select>
           </div>
+          
           {availableModels.length > 1 && (
             <div>
               <label htmlFor="model-select" className="block mb-2 text-sm font-medium text-green-300">
