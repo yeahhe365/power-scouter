@@ -1,4 +1,4 @@
-# DBZ Power Scouter (战斗力侦测器)
+# Power Scouter (战斗力侦测器)
 
 [![Made with Gemini](https://img.shields.io/badge/Made%20with-Gemini-blue.svg)](https://ai.google.dev/)
 
